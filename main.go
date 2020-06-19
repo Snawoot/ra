@@ -15,6 +15,7 @@ const OUTPUT_FORMAT = "2006-01-02 15:04:05 -0700 MST"
 type CLIArgs struct {
     lat, long float64
     date string
+    nopause bool
 }
 
 func perror(msg string) {
@@ -35,6 +36,7 @@ func parseArgs() CLIArgs {
     flag.Float64Var(&args.long, "long", math.NaN(), "longitude")
     flag.StringVar(&args.date, "date", time.Now().Format(DATE_FORMAT),
                    "date in YYYY.MM.DD format. Default is current date.")
+    flag.BoolVar(&args.nopause, "nopause", false, "don't wait for user to press Enter")
     flag.Parse()
 
     if math.IsNaN(args.lat) {
@@ -74,5 +76,11 @@ func main() {
         fmt.Printf("Sunset\t: %s\n", sunset.Local().Format(OUTPUT_FORMAT))
     } else {
         fmt.Println(err)
+    }
+
+    var x string
+    if !args.nopause {
+        fmt.Fprintln(os.Stderr, "\nPress ENTER to continue...")
+        fmt.Scanln(&x)
     }
 }
