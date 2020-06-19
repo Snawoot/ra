@@ -10,6 +10,7 @@ import (
 )
 
 const DATE_FORMAT = "2006-01-02"
+const OUTPUT_FORMAT = "2006-01-02 15:04:05 -0700 MST"
 
 type CLIArgs struct {
     lat, long float64
@@ -69,13 +70,8 @@ func main() {
 
     // If no error has occurred, print the results
     if err == nil {
-        fmt.Println("Sunrise:", sunrise.Local().Format("15:04:05")) // Sunrise: 06:11:44
-        fmt.Println("Sunset:", sunset.Local().Format("15:04:05")) // Sunset: 18:14:27
-
-        fmt.Println("Sunrise:", sunrise.Format("15:04:05")) // Sunrise: 06:11:44
-        fmt.Println("Sunset:", sunset.Format("15:04:05")) // Sunset: 18:14:27
-        fmt.Println(sunrise)
-        fmt.Println(sunrise.Local())
+        fmt.Printf("Sunrise\t: %s\n", sunrise.Local().Format(OUTPUT_FORMAT))
+        fmt.Printf("Sunset\t: %s\n", sunset.Local().Format(OUTPUT_FORMAT))
     } else {
         fmt.Println(err)
     }
