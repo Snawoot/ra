@@ -9,7 +9,7 @@ import (
     "os"
 )
 
-const DATE_FORMAT = "2006.01.02"
+const DATE_FORMAT = "2006-01-02"
 
 type CLIArgs struct {
     lat, long float64
@@ -64,11 +64,18 @@ func main() {
 
     // Calculate the sunrise and sunset times
     sunrise, sunset, err := p.GetSunriseSunset()
+    sunrise = time.Date(date.Year(), date.Month(), date.Day(), sunrise.Hour(), sunrise.Minute(), sunrise.Second(), 0, time.UTC)
+    sunset = time.Date(date.Year(), date.Month(), date.Day(), sunset.Hour(), sunset.Minute(), sunset.Second(), 0, time.UTC)
 
     // If no error has occurred, print the results
     if err == nil {
+        fmt.Println("Sunrise:", sunrise.Local().Format("15:04:05")) // Sunrise: 06:11:44
+        fmt.Println("Sunset:", sunset.Local().Format("15:04:05")) // Sunset: 18:14:27
+
         fmt.Println("Sunrise:", sunrise.Format("15:04:05")) // Sunrise: 06:11:44
         fmt.Println("Sunset:", sunset.Format("15:04:05")) // Sunset: 18:14:27
+        fmt.Println(sunrise)
+        fmt.Println(sunrise.Local())
     } else {
         fmt.Println(err)
     }
