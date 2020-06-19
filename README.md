@@ -4,6 +4,8 @@ Simple sunrise and sunset calculator
 
 This is an offline application, and all calculations performed on your computer, so no Internet access required.
 
+Supported platforms: Windows, MacOS, Linux, \*BSD and other Unix-like.
+
 ## Installation
 
 #### Binary download
